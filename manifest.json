@@ -1,0 +1,25 @@
+{  
+  "manifest_version": 3,  
+
+  "name": "Tag Manager",  
+  "description": "",  
+  "version": "1.0",   
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting"
+],
+    "host_permissions": ["https://*/*"],
+    "action": {    
+        "default_popup": "popup.html"  
+    },
+    "content_scripts": [ {
+        "matches": ["<all_urls>"],
+        "js": ["tagVariables.js",
+        "qaTags.js"]
+      } ],
+      "web_accessible_resources": [{
+        "matches": ["<all_urls>"],
+        "resources": ["tagVariables.js","qaTags.js"]
+      }]
+}
