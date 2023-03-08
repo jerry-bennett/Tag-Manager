@@ -1,21 +1,25 @@
-let qaTags = document.getElementById("qaTags");
+document.addEventListener('DOMContentLoaded', () => {
+  const qaTags = document.getElementById("qaTags");
+
+  qaTags.addEventListener("click", async () => {
+    let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+
+    chrome.scripting.executeScript({
+      target: { tabId: tab.id },
+      func: qaTagsFunction,
+    });
+  });
+})
 
 //defining sleep
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-qaTags.addEventListener("click", async () => {
-  let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-
-  chrome.scripting.executeScript({
-    target: { tabId: tab.id },
-    func: qaTagsFunction,
-  });
-});
-
 async function qaTagsFunction() {
-  chrome.storage.sync.get(["numOfTriggers"]).then((result) => {
+    var element;
+    var elementLength
+    chrome.storage.sync.get(["numOfTriggers"]).then((result) => {
     var numOfTriggers = result.numOfTriggers;
     console.log(numOfTriggers);
     var previewClick1 = "";
@@ -39,16 +43,17 @@ async function qaTagsFunction() {
               if (clickElement1.includes("Classes")) {
                 previewClick1 = document.getElementsByClassName(String(clickElement3[i]));
               } else if (String(clickElement1[i]).includes("Element")) {
-                previewClick1 = "Click Element";
+                previewClick1 = document.getElementsByName(String(clickElement3[i]));
               }
               //REST OF CLICK OPTIONS HERE
               else if (String(clickElement1[i]).includes("Text")) {
+                previewClick1 = "Click Text"
               }
             }
             if (String(clickElement2).includes("equals")) {
               console.log("bingus");
-              var element = document.getElementsByClassName(clickElement3[i]);
-              var elementLength = document.getElementsByClassName(clickElement3[i]).length;
+              element = document.getElementsByClassName(clickElement3[i]);
+              elementLength = document.getElementsByClassName(clickElement3[i]).length;
               console.log(element);
               console.log(elementLength);
 
@@ -66,4 +71,5 @@ async function qaTagsFunction() {
       });
     }
   });
+  
 }

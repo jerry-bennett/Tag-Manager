@@ -1,14 +1,15 @@
-let tagVariables = document.getElementById("tagVariables");
-
-tagVariables.addEventListener("click", async () => {
-    let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-  
-    chrome.scripting.executeScript({
-      target: { tabId: tab.id },
-      func: getTagVariables,
+document.addEventListener('DOMContentLoaded', () => {
+  const tagVariables = document.getElementById("tagVariables");
+  console.log(tagVariables);
+  tagVariables.addEventListener("click", async () => {
+      let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    
+      chrome.scripting.executeScript({
+        target: { tabId: tab.id },
+        func: getTagVariables,
+      });
     });
-  });
-
+})
   //defining sleep
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -26,6 +27,9 @@ function sleep(ms) {
     var filter2 = [];
     var filter3 = [];
     await sleep(1000);
+    //trigger name
+    var triggerName = document.getElementsByClassName('wd-open-trigger-button fill-cell md-gtm-theme')[0].innerHTML;
+    //trigger filters
     var triggerVariables = document.getElementsByClassName('gtm-predicate-summary-row');
     var numOfTriggers = triggerVariables.length;
     for(let i = 0; i < numOfTriggers; i++){
@@ -36,11 +40,9 @@ function sleep(ms) {
 
       //set varaibles to send to qaTags.js
       chrome.storage.sync.set({ filter1: filter1 }).then(() => {
-        console.log("Value is set to " + filter1[i]);
       });
 
       chrome.storage.sync.set({ filter2: filter2 }).then(() => {
-        console.log("Value is set to " + filter2[i]);
       });
 
       chrome.storage.sync.set({ filter3: filter3 }).then(() => {
@@ -49,6 +51,10 @@ function sleep(ms) {
 
       chrome.storage.sync.set({ numOfTriggers: numOfTriggers }).then(() => {
         console.log("Value is set to " + numOfTriggers);
+      });
+
+      chrome.storage.sync.set({ triggerName: triggerName }).then(() => {
+        console.log("Trigger name: " + triggerName);
       });
       
   }
