@@ -46,11 +46,9 @@ function sleep(ms) {
       });
 
       chrome.storage.sync.set({ filter3: filter3 }).then(() => {
-        console.log("Value is set to " + filter3[i]);
       });
 
       chrome.storage.sync.set({ numOfTriggers: numOfTriggers }).then(() => {
-        console.log("Value is set to " + numOfTriggers);
       });
 
       chrome.storage.sync.set({ triggerName: triggerName }).then(() => {

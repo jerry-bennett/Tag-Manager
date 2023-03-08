@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', () => {
   const qaTags = document.getElementById("qaTags");
 
@@ -21,21 +22,17 @@ async function qaTagsFunction() {
     var elementLength
     chrome.storage.sync.get(["numOfTriggers"]).then((result) => {
     var numOfTriggers = result.numOfTriggers;
-    console.log(numOfTriggers);
     var previewClick1 = "";
     for (let i = 0; i < numOfTriggers; i++) {
       //get variables from other script and set them here.
       chrome.storage.sync.get(["filter1"]).then((result) => {
         var clickElement1 = result.filter1;
-        //console.log(clickElement1[i]);
 
         chrome.storage.sync.get(["filter2"]).then((result) => {
           var clickElement2 = result.filter2;
-          //console.log(clickElement2[i]);
 
           chrome.storage.sync.get(["filter3"]).then((result) => {
             var clickElement3 = result.filter3;
-            console.log(clickElement3[i]);
 
             //if statements for each option
             if (String(clickElement1[i]).includes("Click")) {
@@ -53,8 +50,6 @@ async function qaTagsFunction() {
             if (String(clickElement2).includes("equals")) {
               element = document.getElementsByClassName(clickElement3[i]);
               elementLength = document.getElementsByClassName(clickElement3[i]).length;
-              console.log(element);
-              console.log(elementLength);
 
               if (elementLength > 0) {
                 for (let i = 0; i < elementLength; i++) {
