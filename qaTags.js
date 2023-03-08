@@ -51,7 +51,6 @@ async function qaTagsFunction() {
               }
             }
             if (String(clickElement2).includes("equals")) {
-              console.log("bingus");
               element = document.getElementsByClassName(clickElement3[i]);
               elementLength = document.getElementsByClassName(clickElement3[i]).length;
               console.log(element);
@@ -60,7 +59,6 @@ async function qaTagsFunction() {
               if (elementLength > 0) {
                 for (let i = 0; i < elementLength; i++) {
                   sleep(1000);
-                  console.log("bingus2");
                   element[i].click();
                   history.go(-1);
                 }

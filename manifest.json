@@ -15,11 +15,11 @@
     },
     "content_scripts": [ {
         "matches": ["<all_urls>"],
-        "js": ["tagVariables.js",
+        "js": ["triggerVariables.js",
         "qaTags.js"]
       } ],
       "web_accessible_resources": [{
         "matches": ["<all_urls>"],
-        "resources": ["tagVariables.js","qaTags.js"]
+        "resources": ["triggerVariables.js","qaTags.js"]
       }]
 }
