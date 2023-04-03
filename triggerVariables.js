@@ -38,7 +38,7 @@ function sleep(ms) {
       filter2[i] = triggerVariables[i].children[1].innerHTML;
       filter3[i] = triggerVariables[i].children[2].innerHTML;
 
-      //set varaibles to send to qaTags.js
+      //set varaibles to send to fireTags.js
       chrome.storage.sync.set({ filter1: filter1 }).then(() => {
       });
 
