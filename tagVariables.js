@@ -21,10 +21,16 @@ async function getTagVariables() {
         var triggerName = String(result.triggerName);
         var triggers = document.getElementsByClassName('small-trigger-chip md-gtm-theme');
         var numOfTriggers = document.getElementsByClassName('small-trigger-chip md-gtm-theme').length;
-        var tagName = document.getElementsByClassName('open-tag-button fill-cell md-gtm-theme');
+        var tags = document.getElementsByClassName('open-tag-button fill-cell md-gtm-theme');
+        //CURRENTLY ONLY WORKS FOR 1 TRIGGER/TAG
         for (let i = 0; i < numOfTriggers; i++) {
+            var tagName = tags[i].innerText;
+            //might cause problems when there's more than 1 tag
             if (triggerName.includes((String(triggers[i].innerText)))){
-                console.log("Tags to test: " + tagName[i].innerText);
+                chrome.storage.sync.set({ tagName: tagName }).then(() => {
+                    console.log("Tags to test: " + tagName);
+                  });
+                
             }
         }
     })
