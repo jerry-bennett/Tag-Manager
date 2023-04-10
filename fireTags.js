@@ -1,28 +1,12 @@
-
-document.addEventListener('DOMContentLoaded', () => {
-  const fireTags = document.getElementById("fireTags");
-
-  fireTags.addEventListener("click", async () => {
-    let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-
-    chrome.scripting.executeScript({
-      target: { tabId: tab.id },
-      func: fireTagsFunction,
-    });
-  });
-})
-
-//defining sleep
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-async function fireTagsFunction() {
-    var element;
-    var elementLength
-    chrome.storage.sync.get(["numOfTriggers"]).then((result) => {
+const fireTagsFunction = async () => {
+  var element;
+  var elementLength
+  chrome.storage.sync.get(["numOfTriggers"]).then((result) => {
     var numOfTriggers = result.numOfTriggers;
     var previewClick1 = "";
+    const internalLinks = Array.from(document.links).filter(link => link.hostname === window.location.hostname);
+    const numPages = internalLinks.length;
+    console.log(`This website has ${numPages} pages.`);
     for (let i = 0; i < numOfTriggers; i++) {
       //get variables from other script and set them here.
       chrome.storage.sync.get(["filter1"]).then((result) => {
@@ -53,9 +37,16 @@ async function fireTagsFunction() {
 
               if (elementLength > 0) {
                 for (let i = 0; i < elementLength; i++) {
-                  sleep(1000);
                   element[i].click();
-                  history.go(-1);
+                }
+              }
+            }
+            if (String(clickElement2).includes("contains")) {
+              element = document.getElementsByClassName(clickElement3[i]);
+              elementLength = document.getElementsByClassName(clickElement3[i]).length;
+              if (elementLength > 0) {
+                for (let i = 0; i < elementLength; i++) {
+                  element[i].click();
                 }
               }
             }
@@ -64,5 +55,40 @@ async function fireTagsFunction() {
       });
     }
   });
-  
-}
+};
+
+const scrapeSite = async (callback) => {
+  const internalLinks = Array.from(document.links).filter(link => link.hostname === window.location.hostname);
+  const numPages = internalLinks.length;
+  let promise = Promise.resolve();
+
+  internalLinks.forEach((link, i) => {
+    console.log(`Processing page ${i + 1} out of ${numPages}: ${link.href}`);
+    promise = promise.then(() => fetch(link.href))
+      .then(response => response.text())
+      .then(html => {
+        const dom = new DOMParser().parseFromString(html, 'text/html');
+        // Call your custom script function with the DOM object
+        fireTagsFunction(dom);
+      })
+      //.catch(error => console.error(error));
+  });
+
+  // Call the callback function when all links have been processed
+  promise.then(callback);
+};
+
+const fireTags = document.getElementById("fireTags");
+fireTags.addEventListener("click", async () => {
+  let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+
+  chrome.scripting.executeScript({
+    target: { tabId: tab.id },
+    func: async () => {
+      await scrapeSite(() => {
+        // Call the function once after all links have been processed
+        fireTagsFunction();
+      });
+    },
+  });
+});
