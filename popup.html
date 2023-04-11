@@ -1,16 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+      body {
+        padding: 20px;
+        width: 300px;
+        height: 200px;
+      }
+      .button-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 10px;
+      }
+      .button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.2s ease-in-out;
+      }
+      .button:hover {
+        background-color: #eeeeee;
+      }
+      .button i {
+        margin-right: 10px;
+      }
+      #triggerVariables {
+        background-color: #2196f3;
+        color: #ffffff;
+      }
+      #tagVariables {
+        background-color: #9c27b0;
+        color: #ffffff;
+      }
+      #fireTags {
+        background-color: #4caf50;
+        color: #ffffff;
+      }
+      #qaTags {
+        background-color: #ff9800;
+        color: #ffffff;
+      }
+    </style>
   </head>
   <body>
-    <button id="triggerVariables" style="margin: 10px; padding: 16px;">Triggers</button>
-    <button id="tagVariables" style="margin: 10px; padding: 16px;">Tags</button>
-    <button id="fireTags" style="margin: 10px; padding: 16px;">Fire Tags</button>
-    <button id="qaTags" style="margin: 10px; padding: 16px;">QA</button>
-    <script type = "module" src = "triggerVariables.js"></script>
-    <script type = "module" src = "fireTags.js" ></script>
-    <script type = "module" src = "qaTags.js" ></script>
-    <script type = "text/javascript" src = "tagVariables.js" ></script>
+    <div class="button-grid">
+      <div class="button" id="triggerVariables">
+        <i class="material-icons">alarm</i>Triggers
+      </div>
+      <div class="button" id="tagVariables">
+        <i class="material-icons">label</i>Tags
+      </div>
+      <div class="button" id="fireTags">
+        <i class="material-icons">whatshot</i>Fire Tags
+      </div>
+      <div class="button" id="qaTags">
+        <i class="material-icons">info</i>QA
+      </div>
+    </div>
+    <script type="module" src="triggerVariables.js"></script>
+    <script type="module" src="fireTags.js"></script>
+    <script type="module" src="qaTags.js"></script>
+    <script type="text/javascript" src="tagVariables.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   </body>
 </html>
