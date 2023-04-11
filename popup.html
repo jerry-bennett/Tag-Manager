@@ -6,8 +6,18 @@
     <style>
       body {
         padding: 20px;
-        width: 300px;
-        height: 200px;
+        width: 250px;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      #wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 75vh;
       }
       .button-grid {
         display: grid;
@@ -48,18 +58,20 @@
     </style>
   </head>
   <body>
-    <div class="button-grid">
-      <div class="button" id="triggerVariables">
-        <i class="material-icons">alarm</i>Triggers
-      </div>
-      <div class="button" id="tagVariables">
-        <i class="material-icons">label</i>Tags
-      </div>
-      <div class="button" id="fireTags">
-        <i class="material-icons">whatshot</i>Fire Tags
-      </div>
-      <div class="button" id="qaTags">
-        <i class="material-icons">info</i>QA
+    <div id="wrapper">
+      <div class="button-grid">
+        <div class="button" id="triggerVariables">
+          <i class="material-icons">alarm</i>Triggers
+        </div>
+        <div class="button" id="tagVariables">
+          <i class="material-icons">label</i>Tags
+        </div>
+        <div class="button" id="fireTags">
+          <i class="material-icons">whatshot</i>Fire Tags
+        </div>
+        <div class="button" id="qaTags">
+          <i class="material-icons">info</i>QA
+        </div>
       </div>
     </div>
     <script type="module" src="triggerVariables.js"></script>

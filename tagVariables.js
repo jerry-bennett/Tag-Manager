@@ -8,6 +8,8 @@ function getTriggerVariables() {
       triggerName: ''
     };
   
+    let triggerNameString = ''; // initialize empty string for concatenation
+  
     for (const triggerVariable of triggerVariables) {
       const triggerName = triggerVariable.closest('.gtm-tag-row').querySelector('.wd-open-trigger-button.fill-cell.md-gtm-theme').innerHTML;
       let filter1 = triggerVariable.children[0].innerHTML;
@@ -17,11 +19,11 @@ function getTriggerVariables() {
       variablesToStore.filter1.push(filter1);
       variablesToStore.filter2.push(filter2);
       variablesToStore.filter3.push(filter3);
-      variablesToStore.triggerName = triggerName;
     }
-  
+    
     storeVariables(variablesToStore);
   }
+
   
   function storeVariables(variables) {
     chrome.storage.sync.set(variables, () => {
