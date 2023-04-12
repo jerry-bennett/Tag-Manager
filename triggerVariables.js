@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  var triggerVariables = '';
-  triggerVariables = document.getElementById("triggerVariables");
+  const triggerVariables = document.getElementById("triggerVariables");
   console.log(triggerVariables);
   triggerVariables.addEventListener("click", async () => {
     let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
@@ -34,8 +33,7 @@ async function getTriggerVariables() {
   for (let i = 0; i < numOfTriggers; i++) {
     await sleep(1000);
   
-    const triggerNameElement = '';
-    triggerElementName = document.getElementsByClassName('wd-open-trigger-button fill-cell md-gtm-theme')[i];
+    const triggerNameElement = document.getElementsByClassName('wd-open-trigger-button fill-cell md-gtm-theme')[i];
     const triggerName = triggerNameElement.textContent;
   
     const filter1 = triggerVariables[i].children[0].innerHTML;

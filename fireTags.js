@@ -80,16 +80,16 @@ const scrapeSite = async (callback) => {
 };
 
 const fireTags = document.getElementById("fireTags");
-fireTags.addEventListener("click", async () => {
-  let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  fireTags.addEventListener("click", async () => {
+    let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
-  chrome.scripting.executeScript({
-    target: { tabId: tab.id },
-    func: async () => {
-      await scrapeSite(() => {
-        // Call the function once after all links have been processed
-        fireTagsFunction();
-      });
-    },
+    chrome.scripting.executeScript({
+      target: { tabId: tab.id },
+      func: async () => {
+        await scrapeSite(() => {
+          // Call the function once after all links have been processed
+          fireTagsFunction();
+        });
+      },
+    });
   });
-});
