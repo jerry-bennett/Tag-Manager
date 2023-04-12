@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const triggerVariables = document.getElementById("triggerVariables");
+  var triggerVariables = '';
+  triggerVariables = document.getElementById("triggerVariables");
   console.log(triggerVariables);
   triggerVariables.addEventListener("click", async () => {
     let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
@@ -32,20 +33,21 @@ async function getTriggerVariables() {
 
   for (let i = 0; i < numOfTriggers; i++) {
     await sleep(1000);
-
-    const triggerNameElement = document.getElementsByClassName('wd-open-trigger-button fill-cell md-gtm-theme')[i];
-    const triggerName = triggerNameElement ? triggerNameElement.innerHTML : '';
-
+  
+    const triggerNameElement = '';
+    triggerElementName = document.getElementsByClassName('wd-open-trigger-button fill-cell md-gtm-theme')[i];
+    const triggerName = triggerNameElement.textContent;
+  
     const filter1 = triggerVariables[i].children[0].innerHTML;
     const filter2 = triggerVariables[i].children[1].innerHTML;
     const filter3 = triggerVariables[i].children[2].innerHTML;
-
+  
     variablesToStore.filter1.push(filter1);
     variablesToStore.filter2.push(filter2);
     variablesToStore.filter3.push(filter3);
-
+  
     variablesToStore.triggerName = triggerName;
-
+  
     storeVariables(variablesToStore);
   }
 }

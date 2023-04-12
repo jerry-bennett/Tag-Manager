@@ -1,4 +1,4 @@
-function getTriggerVariables() {
+function getTriggerVariablesForTags() {
     const triggerVariables = document.getElementsByClassName('gtm-predicate-summary-row');
     const variablesToStore = {
       filter1: [],
@@ -32,14 +32,14 @@ function getTriggerVariables() {
   }
   
   function setupClickHandler() {
-    const triggerVariables = document.getElementById("triggerVariables");
-    console.log(triggerVariables);
-    triggerVariables.addEventListener("click", async () => {
+    const tagVariables = document.getElementById("tagVariables");
+    console.log(tagVariables);
+    tagVariables.addEventListener("click", async () => {
       let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   
       chrome.scripting.executeScript({
         target: { tabId: tab.id },
-        func: getTriggerVariables,
+        func: getTriggerVariablesForTags,
       });
     });
   }
