@@ -33,7 +33,9 @@ async function getTriggerVariables() {
   for (let i = 0; i < numOfTriggers; i++) {
     await sleep(1000);
 
-    const triggerName = document.getElementsByClassName('wd-open-trigger-button fill-cell md-gtm-theme')[i].innerHTML;
+    const triggerNameElement = document.getElementsByClassName('wd-open-trigger-button fill-cell md-gtm-theme')[i];
+    const triggerName = triggerNameElement ? triggerNameElement.innerHTML : '';
+
     const filter1 = triggerVariables[i].children[0].innerHTML;
     const filter2 = triggerVariables[i].children[1].innerHTML;
     const filter3 = triggerVariables[i].children[2].innerHTML;

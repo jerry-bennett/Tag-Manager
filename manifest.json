@@ -8,18 +8,27 @@
     "storage",
     "activeTab",
     "scripting"
-],
-    "host_permissions": ["https://*/*"],
-    "action": {    
-        "default_popup": "popup.html"  
-    },
-    "content_scripts": [ {
-        "matches": ["<all_urls>"],
-        "js": ["triggerVariables.js",
-        "fireTags.js", "tagVariables.js", "qaTags.js"]
-      } ],
-      "web_accessible_resources": [{
-        "matches": ["<all_urls>"],
-        "resources": ["triggerVariables.js","fireTags.js", "tagVariables.js", "qaTags.js"]
-      }]
+  ],
+  "host_permissions": ["https://*/*"],
+  "action": {    
+    "default_popup": "popup.html"  
+  },
+  "content_scripts": [{
+    "matches": ["<all_urls>"],
+    "js": [
+      "triggerVariables.js",
+      "fireTags.js",
+      "tagVariables.js",
+      "qaTags.js"
+    ]
+  }],
+  "web_accessible_resources": [{
+    "matches": ["<all_urls>"],
+    "resources": [
+      "triggerVariables.js",
+      "fireTags.js",
+      "tagVariables.js",
+      "qaTags.js"
+    ]
+  }]
 }
