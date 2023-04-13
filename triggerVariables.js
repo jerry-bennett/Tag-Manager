@@ -48,6 +48,8 @@ async function getTriggerVariables() {
   
     storeVariables(variablesToStore);
   }
+  variablesToStore.push(numOfTriggers);
+  console.log(numOfTriggers);
 }
 
 function storeVariables(variables) {
