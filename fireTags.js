@@ -20,10 +20,6 @@ const fireTagsFunction = async () => {
       const clickElement1 = clickElements[0];
       const clickElement2 = clickElements[1];
       const clickElement3 = clickElements[2];
-
-      console.log(clickElement1);
-      console.log(clickElement2);
-      console.log(clickElement3);
       
       //get variables from other script and set them here.
       //if statements for each option
