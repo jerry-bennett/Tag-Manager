@@ -3,7 +3,7 @@ const fireTagsFunction = async () => {
   var elementLength;
   chrome.storage.sync.get(["numOfTriggers", "filter1", "filter2", "filter3"], (result) => {
     const numOfTriggers = result.numOfTriggers;
-    const clickElements = [
+    const triggerElements = [
       result.filter1,
       result.filter2,
       result.filter3
@@ -15,48 +15,48 @@ const fireTagsFunction = async () => {
     var previewClick1 = "";
     for (let i = 0; i < numOfTriggers; i++) {
       // Use the clickElements array instead of multiple chrome.storage.sync.get calls
-      const clickElement1 = clickElements[0];
-      const clickElement2 = clickElements[1];
-      const clickElement3 = clickElements[2];
+      const triggerElement1 = triggerElements[0];
+      const triggerElement2 = triggerElements[1];
+      const triggerElement3 = triggerElements[2];
 
-      switch (clickElement1[i]) {
+      switch (triggerElement1[i]) {
         case "Click Classes":
-          previewClick1 = document.getElementsByClassName(String(clickElement3[i]));
+          previewClick1 = document.getElementsByClassName(String(triggerElement3[i]));
           break;
         case "Click Element":
-          previewClick1 = document.getElementsByName(String(clickElement3[i]));
+          previewClick1 = document.getElementsByName(String(triggerElement3[i]));
           break;
         case "Click Text":
           previewClick1 = "Click Text";
           break;
         default:
-          console.log("default");
+          break;
       }
 
-      switch (clickElement2[i]) {
+      switch (triggerElement2[i]) {
         case "equals":
-          element = document.getElementsByClassName(clickElement3[i]);
-          elementLength = document.getElementsByClassName(clickElement3[i]).length;
+          element = document.getElementsByClassName(triggerElement3[i]);
+          elementLength = document.getElementsByClassName(triggerElement3[i]).length;
 
-          if (elementLength > 0) {
+          if (elementLength[i] > 0) {
             for (let i = 0; i < elementLength; i++) {
-              element[i].click();
+              element.click();
               console.log("Swag");
             }
           }
           break;
         case "contains":
-          element = document.getElementsByClassName(clickElement3[i]);
-          elementLength = document.getElementsByClassName(clickElement3[i]).length;
+          element = document.getElementsByClassName(triggerElement3[i]);
+          elementLength = document.getElementsByClassName(triggerElement3[i]).length;
           if (elementLength > 0) {
             for (let i = 0; i < elementLength; i++) {
-              element[i].click();
+              element.click();
               console.log("Swag");
             }
           }
           break;
         default:
-          console.log("default");
+          break;
       }
     }
   });
