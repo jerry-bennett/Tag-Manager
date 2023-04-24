@@ -33,20 +33,22 @@ async function getTriggerVariables() {
   for (let i = 0; i < numOfTriggers; i++) {
     await sleep(1000);
   
-    const triggerNameElement = document.getElementsByClassName('wd-open-trigger-button fill-cell md-gtm-theme')[i];
-    const triggerName = triggerNameElement.textContent;
+    if(document.getElementsByClassName('wd-open-trigger-button fill-cell md-gtm-theme')[i] != null){
+      const triggerNameElement = document.getElementsByClassName('wd-open-trigger-button fill-cell md-gtm-theme')[i];
+      const triggerName = triggerNameElement.textContent;
   
-    const filter1 = triggerVariables[i].children[0].innerHTML;
-    const filter2 = triggerVariables[i].children[1].innerHTML;
-    const filter3 = triggerVariables[i].children[2].innerHTML;
-  
-    variablesToStore.filter1.push(filter1);
-    variablesToStore.filter2.push(filter2);
-    variablesToStore.filter3.push(filter3);
-  
-    variablesToStore.triggerName = triggerName;
-  
-    storeVariables(variablesToStore);
+      const filter1 = triggerVariables[i].children[0].innerHTML;
+      const filter2 = triggerVariables[i].children[1].innerHTML;
+      const filter3 = triggerVariables[i].children[2].innerHTML;
+    
+      variablesToStore.filter1.push(filter1);
+      variablesToStore.filter2.push(filter2);
+      variablesToStore.filter3.push(filter3);
+    
+      variablesToStore.triggerName = triggerName;
+    
+      storeVariables(variablesToStore);
+    }
   }
   variablesToStore.push(numOfTriggers);
   console.log(numOfTriggers);

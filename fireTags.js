@@ -13,51 +13,54 @@ const fireTagsFunction = async () => {
     console.log(`This website has ${numPages} pages.`);
 
     var previewClick1 = "";
-    console.log(`This website has ${numPages} pages.`);
-    console.log(numOfTriggers);
     for (let i = 0; i < numOfTriggers; i++) {
       // Use the clickElements array instead of multiple chrome.storage.sync.get calls
       const clickElement1 = clickElements[0];
       const clickElement2 = clickElements[1];
       const clickElement3 = clickElements[2];
-      
-      //get variables from other script and set them here.
-      //if statements for each option
-      if (String(clickElement1[i]).includes("Click")) {
-        //CLICK
-        if (clickElement1.includes("Classes")) {
-          previewClick1 = document.getElementsByClassName(String(clickElement3[i]));
-        } else if (String(clickElement1[i]).includes("Element")) {
-          previewClick1 = document.getElementsByName(String(clickElement3[i]));
-        }
-        //REST OF CLICK OPTIONS HERE
-        else if (String(clickElement1[i]).includes("Text")) {
-          previewClick1 = "Click Text";
-        }
-      }
-      if (String(clickElement2).includes("equals")) {
-        element = document.getElementsByClassName(clickElement3[i]);
-        elementLength = document.getElementsByClassName(clickElement3[i]).length;
 
-        if (elementLength > 0) {
-          for (let i = 0; i < elementLength; i++) {
-            element[i].click();
-          }
-        }
+      switch (clickElement1[i]) {
+        case "Click Classes":
+          previewClick1 = document.getElementsByClassName(String(clickElement3[i]));
+          break;
+        case "Click Element":
+          previewClick1 = document.getElementsByName(String(clickElement3[i]));
+          break;
+        case "Click Text":
+          previewClick1 = "Click Text";
+          break;
+        default:
+          console.log("default");
       }
-      if (String(clickElement2).includes("contains")) {
-        element = document.getElementsByClassName(clickElement3[i]);
-        elementLength = document.getElementsByClassName(clickElement3[i]).length;
-        if (elementLength > 0) {
-          for (let i = 0; i < elementLength; i++) {
-            element[i].click();
+
+      switch (clickElement2[i]) {
+        case "equals":
+          element = document.getElementsByClassName(clickElement3[i]);
+          elementLength = document.getElementsByClassName(clickElement3[i]).length;
+
+          if (elementLength > 0) {
+            for (let i = 0; i < elementLength; i++) {
+              element[i].click();
+              console.log("Swag");
+            }
           }
-        }
+          break;
+        case "contains":
+          element = document.getElementsByClassName(clickElement3[i]);
+          elementLength = document.getElementsByClassName(clickElement3[i]).length;
+          if (elementLength > 0) {
+            for (let i = 0; i < elementLength; i++) {
+              element[i].click();
+              console.log("Swag");
+            }
+          }
+          break;
+        default:
+          console.log("default");
       }
     }
   });
 };
-
 
 const scrapeSite = async (callback) => {
   const internalLinks = Array.from(document.links).filter(link => link.hostname === window.location.hostname);
