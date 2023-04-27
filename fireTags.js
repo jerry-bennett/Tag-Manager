@@ -1,8 +1,7 @@
 const fireTagsFunction = async () => {
   var element;
   var elementLength;
-  chrome.storage.sync.get(["numOfTriggers", "filter1", "filter2", "filter3"], (result) => {
-    const numOfTriggers = result.numOfTriggers;
+  chrome.storage.sync.get(["filter1", "filter2", "filter3", "triggerName"], (result) => {
     const triggerElements = [
       result.filter1,
       result.filter2,
@@ -19,7 +18,7 @@ const fireTagsFunction = async () => {
       const triggerElement2 = triggerElements[1];
       const triggerElement3 = triggerElements[2];
 
-      switch (triggerElement1[i]) {
+      switch (triggerElement1) {
         case "Click Classes":
           previewClick1 = document.getElementsByClassName(String(triggerElement3[i]));
           break;
@@ -33,25 +32,27 @@ const fireTagsFunction = async () => {
           break;
       }
 
-      switch (triggerElement2[i]) {
+      switch (triggerElement2) {
         case "equals":
-          element = document.getElementsByClassName(triggerElement3[i]);
-          elementLength = document.getElementsByClassName(triggerElement3[i]).length;
+          console.log("Swag");
+          element = document.getElementsByClassName(String(triggerElement3));
+          elementLength = document.getElementsByClassName(String(triggerElement3)).length;
 
-          if (elementLength[i] > 0) {
+          if (elementLength > 0) {
             for (let i = 0; i < elementLength; i++) {
               element.click();
-              console.log("Swag");
+              console.log("Swag2");
             }
           }
           break;
         case "contains":
-          element = document.getElementsByClassName(triggerElement3[i]);
-          elementLength = document.getElementsByClassName(triggerElement3[i]).length;
+          console.log("Swag");
+          element = document.getElementsByClassName(triggerElement3);
+          elementLength = document.getElementsByClassName(triggerElement3).length;
           if (elementLength > 0) {
             for (let i = 0; i < elementLength; i++) {
               element.click();
-              console.log("Swag");
+              console.log("Swag2");
             }
           }
           break;

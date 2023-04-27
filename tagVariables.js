@@ -1,50 +1,59 @@
-function getTriggerVariables() {
-  const triggerVariables = document.getElementsByClassName('gtm-predicate-summary-row');
-  const numOfTriggers = triggerVariables.length;
-
-  const variablesToStore = {
-    filter1: [],
-    filter2: [],
-    filter3: [],
-    numOfTriggers,
-    triggerName: ''
-  };
-
-  for (const triggerVariable of triggerVariables) {
-      //sleep(1000);
-
-    const triggerName = triggerVariable.closest('.gtm-tag-row').querySelector('.wd-open-trigger-button.fill-cell.md-gtm-theme').innerHTML;
-    const filter1 = triggerVariable.children[0].innerHTML;
-    const filter2 = triggerVariable.children[1].innerHTML;
-    const filter3 = triggerVariable.children[2].innerHTML;
-
-    variablesToStore.filter1.push(filter1);
-    variablesToStore.filter2.push(filter2);
-    variablesToStore.filter3.push(filter3);
-
-    variablesToStore.triggerName = triggerName;
-  }
-
-  storeVariables(variablesToStore);
-}
-
-function storeVariables(variables) {
-  chrome.storage.sync.set(variables, () => {
-    console.log(variables);
-  });
-}
-
-function setupClickHandler() {
-  const triggerVariables = document.getElementById("triggerVariables");
-  console.log(triggerVariables);
-  triggerVariables.addEventListener("click", async () => {
+//wait until click before firing script
+document.addEventListener('DOMContentLoaded', () => {
+  const tagVariables = document.getElementById("tagVariables");
+  tagVariables.addEventListener("click", async () => {
     let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
     chrome.scripting.executeScript({
       target: { tabId: tab.id },
-      func: getTriggerVariables,
+      func: getTagVariables,
+    });
+  });
+});
+
+async function getTagVariables() {
+  //make sure the user is on the right page
+  var url = window.location.href;
+  if (!url.endsWith("tags")) {
+    console.log("nope");
+    var triggerButton = document.querySelector('.gtm-container-menu-list-item.open-tag-list-button.md-gtm-theme');
+    triggerButton.click();
+    await sleep(1000);
+  }
+
+  var tag = document.getElementsByClassName('wd-tag-row');
+  var tagsToTest = [];
+  var tagNames = [];
+  var tagTotal = 0;
+  chrome.storage.sync.get('numOfTriggers', function(data) {
+    const numOfTriggers = data.numOfTriggers;
+    //get variables from storage to use
+    chrome.storage.sync.get({list:[] },function(data) {
+      triggerNames = data.list;
+
+      //get number of tags present
+      var numOfTags = document.getElementsByClassName('open-tag-button fill-cell md-gtm-theme').length;
+      //loop to store tag names into an array
+      for(var i = 0; i < numOfTags; i++){
+        //get tag name and use regext to make it usable
+        var text = tag[i].innerText;
+        var readableText = text.replace(/\t/g, " ").replace(/\n+/g, "\n");
+        var tagArray = readableText.split('\n');
+        var tempName = tagArray[1];
+        tagNames.push(tempName);
+        for(var j = 0; j < numOfTriggers; j++){
+          if(String(tagArray[3]).includes(triggerNames[j])){
+            tagsToTest.push(tempName);
+          }
+        }
+
+      }
+      console.log("Tags to test: "+ tagsToTest);
     });
   });
 }
 
-document.addEventListener('DOMContentLoaded', setupClickHandler);
+function storeVariables(variables) {
+  chrome.storage.sync.set(variables, () => {
+  });
+}

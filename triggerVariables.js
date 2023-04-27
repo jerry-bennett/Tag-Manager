@@ -1,6 +1,6 @@
+//wait until click before firing script
 document.addEventListener('DOMContentLoaded', () => {
   const triggerVariables = document.getElementById("triggerVariables");
-  console.log(triggerVariables);
   triggerVariables.addEventListener("click", async () => {
     let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
@@ -16,46 +16,52 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+//main function
 async function getTriggerVariables() {
-  await sleep(1000);
+  //make sure the user is on the right page
+  var url = window.location.href;
 
-  const triggerVariables = document.getElementsByClassName('gtm-predicate-summary-row');
-  const numOfTriggers = triggerVariables.length;
-
-  const variablesToStore = {
-    filter1: [],
-    filter2: [],
-    filter3: [],
-    numOfTriggers,
-    triggerName: ''
-  };
-
-  for (let i = 0; i < numOfTriggers; i++) {
+  if (!url.endsWith("triggers")) {
+    console.log("nope");
+    var triggerButton = document.querySelector('.gtm-container-menu-list-item.wd-open-trigger-list-button.md-gtm-theme');
+    triggerButton.click();
     await sleep(1000);
-  
-    if(document.getElementsByClassName('wd-open-trigger-button fill-cell md-gtm-theme')[i] != null){
-      const triggerNameElement = document.getElementsByClassName('wd-open-trigger-button fill-cell md-gtm-theme')[i];
-      const triggerName = triggerNameElement.textContent;
-  
-      const filter1 = triggerVariables[i].children[0].innerHTML;
-      const filter2 = triggerVariables[i].children[1].innerHTML;
-      const filter3 = triggerVariables[i].children[2].innerHTML;
-    
-      variablesToStore.filter1.push(filter1);
-      variablesToStore.filter2.push(filter2);
-      variablesToStore.filter3.push(filter3);
-    
-      variablesToStore.triggerName = triggerName;
-    
-      storeVariables(variablesToStore);
-    }
   }
-  variablesToStore.push(numOfTriggers);
-  console.log(numOfTriggers);
-}
+  console.log("started");
+  //wait until 1 second has passed
+  //await sleep(1000);
 
-function storeVariables(variables) {
-  chrome.storage.sync.set(variables, () => {
-    console.log(variables);
+  //define trigger variables
+  const triggerRows = document.getElementsByClassName('gtm-predicate-summary-row');
+  const numOfTriggers = triggerRows.length;
+  var triggerName = [];
+  var filter1 = [];
+  var filter2 = [];
+  var filter3 = [];
+
+  //main loop
+  for (let i = 0; i < numOfTriggers; i++) {
+  
+    //trigger variables for loop
+    const triggerNameElement = document.getElementsByClassName('wd-open-trigger-button fill-cell md-gtm-theme');
+  
+    //variables to store to chrome storage
+    filter1 = triggerRows[i].children[0].innerHTML;
+    filter2 = triggerRows[i].children[1].innerHTML;
+    filter3 = triggerRows[i].children[2].innerHTML;
+  
+    //assign variables to store to an array
+    triggerName.push(triggerNameElement[i].innerText);
+  }
+
+  //see what is going to be stored
+  console.log(triggerName);
+  //actually store them
+  chrome.storage.sync.set({list:triggerName}, function(){
+  });
+
+  //store numOfTriggers
+  chrome.storage.sync.set({ 'numOfTriggers': numOfTriggers }, function() {
   });
 }
+
