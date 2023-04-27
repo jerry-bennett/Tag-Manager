@@ -34,7 +34,7 @@ async function getTriggerVariables() {
   //define trigger variables
   const triggerRows = document.getElementsByClassName('gtm-predicate-summary-row');
   const numOfTriggers = triggerRows.length;
-  var triggerName = [];
+  var triggerNames = [];
   var filter1 = [];
   var filter2 = [];
   var filter3 = [];
@@ -46,18 +46,31 @@ async function getTriggerVariables() {
     const triggerNameElement = document.getElementsByClassName('wd-open-trigger-button fill-cell md-gtm-theme');
   
     //variables to store to chrome storage
-    filter1 = triggerRows[i].children[0].innerHTML;
-    filter2 = triggerRows[i].children[1].innerHTML;
-    filter3 = triggerRows[i].children[2].innerHTML;
-  
+    filter1.push(triggerRows[i].children[0].innerHTML);
+    filter2.push(triggerRows[i].children[1].innerHTML);
+    filter3.push(triggerRows[i].children[2].innerHTML);
+
     //assign variables to store to an array
-    triggerName.push(triggerNameElement[i].innerText);
+    triggerNames.push(triggerNameElement[i].innerText);
   }
 
   //see what is going to be stored
-  console.log(triggerName);
+  console.log(triggerNames);
+
+  console.log(filter1);
+  console.log(filter2);
+  console.log(filter3);
   //actually store them
-  chrome.storage.sync.set({list:triggerName}, function(){
+  chrome.storage.sync.set({triggerNames:triggerNames}, function(){
+  });
+
+  chrome.storage.sync.set({filter1:filter1}, function(){
+  });
+
+  chrome.storage.sync.set({filter2:filter2}, function(){
+  });
+
+  chrome.storage.sync.set({filter3:filter3}, function(){
   });
 
   //store numOfTriggers

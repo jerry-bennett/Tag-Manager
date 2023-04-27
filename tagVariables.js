@@ -28,8 +28,8 @@ async function getTagVariables() {
   chrome.storage.sync.get('numOfTriggers', function(data) {
     const numOfTriggers = data.numOfTriggers;
     //get variables from storage to use
-    chrome.storage.sync.get({list:[] },function(data) {
-      triggerNames = data.list;
+    chrome.storage.sync.get({triggerNames:[] },function(data) {
+      triggerNames = data.triggerNames;
 
       //get number of tags present
       var numOfTags = document.getElementsByClassName('open-tag-button fill-cell md-gtm-theme').length;
@@ -48,12 +48,13 @@ async function getTagVariables() {
         }
 
       }
-      console.log("Tags to test: "+ tagsToTest);
-    });
-  });
-}
 
-function storeVariables(variables) {
-  chrome.storage.sync.set(variables, () => {
+      //display tags to test
+      console.log("Tags to test: "+ tagsToTest);
+
+      //store them
+      chrome.storage.sync.set({tagsToTest:tagsToTest}, function(){
+      });
+    });
   });
 }
