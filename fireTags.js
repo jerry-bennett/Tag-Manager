@@ -53,9 +53,9 @@ document.addEventListener('DOMContentLoaded', () => {
           switch (String(filter1[i])) {
             case ("Click Classes"):
               //look for the element on each page by class name
-              var elementToClick = document.getElementsByClassName(String(filter3[i]));
+              elementToClick = document.getElementsByClassName(String(filter3[i]));
               if (elementToClick != null) {
-                console.log('not null');
+                console.log(String(filter3[i]));
                 for(var j = 0; j < elementToClick.length; j++){
                   elementToClick[j].click();
                 }
