@@ -22,7 +22,7 @@ async function getTriggerVariables() {
   var url = window.location.href;
 
   if (!url.endsWith("triggers")) {
-    console.log("nope");
+    console.log("Navigating to triggers");
     var triggerButton = document.querySelector('.gtm-container-menu-list-item.wd-open-trigger-list-button.md-gtm-theme');
     triggerButton.click();
     await sleep(1000);

@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let filter2 = [];
     let filter3 = [];
     let numOfTriggers = 0;
+    let tagsArray = [];
   
     chrome.storage.sync.get({ tagsToTest: [], filter1: [], filter2: [], filter3: [], numOfTriggers: 0 }, (data) => {
       tagsToTest = data.tagsToTest;
@@ -33,7 +34,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
       //ISSUE: only fires one tag at the moment. need to assign which tag is associated with which trigger.
       for (let i = 0; i < tagsToTest.length; i++) {
-        console.log("Tags to test " + tagsToTest.length);
+        //initialize timesFired as 0
+        let timesFired = 0;
+        console.log("🏷 Tags to test " + tagsToTest.length);
         //initialize the element
         let elementToClick = '';
 
@@ -43,15 +46,21 @@ document.addEventListener('DOMContentLoaded', () => {
             //store element
             elementToClick = document.getElementsByClassName(String(filter3[i]));
             if(elementToClick.length > 0){
-              console.log("Elements matching " + filter3[i] + ": " + elementToClick.length);
+              //push tag to test into array
+              tagsArray.push(String(tagsToTest[[i]]));
+              console.log("🏷 Elements matching " + filter3[i] + ": " + elementToClick.length);
               for(var j = 0; j < elementToClick.length; j++){
                 elementToClick[j].click();
+                timesFired = timesFired + 1;
               }
+              tagsArray.push(timesFired);
             }else{
-              console.log("No elements matching " + filter3[i]);
+              console.log("🏷 No elements matching " + filter3[i]);
             }
           }
         }
+        console.log("🏷 Tags array: " + tagsArray);
       });
+
     }
 

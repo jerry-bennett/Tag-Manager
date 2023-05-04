@@ -15,7 +15,7 @@ async function getTagVariables() {
   //make sure the user is on the right page
   var url = window.location.href;
   if (!url.endsWith("tags")) {
-    console.log("nope");
+    console.log("Navigating to tags");
     var triggerButton = document.querySelector('.gtm-container-menu-list-item.open-tag-list-button.md-gtm-theme');
     triggerButton.click();
     await sleep(1000);
