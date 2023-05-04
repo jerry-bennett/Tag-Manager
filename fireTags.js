@@ -6,12 +6,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
       chrome.scripting.executeScript({
         target: { tabId: tab.id },
-        func: scrapeSite
+        func: fireTagsFunction
       });
     });
   });
 
   async function fireTagsFunction () {
+    // Initialize a variable to store the number of pages on the website
+    let numPages = 0;
+    
+    // Get all the links on the page
+    const links = document.getElementsByTagName("a");
+
     let tagsToTest = [];
     let filter1 = [];
     let filter2 = [];
@@ -24,49 +30,28 @@ document.addEventListener('DOMContentLoaded', () => {
       filter2 = data.filter2;
       filter3 = data.filter3;
       numOfTriggers = data.numOfTriggers;
-  
+
       //ISSUE: only fires one tag at the moment. need to assign which tag is associated with which trigger.
       for (let i = 0; i < tagsToTest.length; i++) {
+        console.log("Tags to test " + tagsToTest.length);
+        //initialize the element
         let elementToClick = '';
+
+        //determine what kind of element it is
         switch (String(filter1[i])) {
           case ("Click Classes"):
+            //store element
             elementToClick = document.getElementsByClassName(String(filter3[i]));
-            console.log(String(filter3[i]));
             if(elementToClick.length > 0){
+              console.log("Elements matching " + filter3[i] + ": " + elementToClick.length);
               for(var j = 0; j < elementToClick.length; j++){
                 elementToClick[j].click();
               }
+            }else{
+              console.log("No elements matching " + filter3[i]);
             }
-            break;
-        }
-      }
-    });
-  };
-
-  async function scrapeSite() {
-    // Initialize a variable to store the number of pages on the website
-    let numPages = 0;
-    
-    // Get all the links on the page
-    const links = document.getElementsByTagName("a");
-  
-    // Loop through each link and check if it's on the same domain as the current page
-    for (let i = 0; i < links.length; i++) {
-      const link = links[i];
-  
-      if (link.href.indexOf(window.location.hostname) !== -1) {
-        // If the link is on the same domain, load it in the background and run the fireTagsFunction on it
-        const xhr = new XMLHttpRequest();
-        xhr.open("GET", link.href, true);
-        xhr.onreadystatechange = function() {
-          if (xhr.readyState === 4 && xhr.status === 200) {
-            const div = document.createElement("div");
-            div.innerHTML = xhr.responseText;
-            fireTagsFunction();
           }
-        };
-        xhr.send();
-      }
+        }
+      });
     }
-  }
 
