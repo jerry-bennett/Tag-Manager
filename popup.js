@@ -4,25 +4,17 @@ const wrapper = document.getElementById('wrapper');
 // Create the select element
 const select = document.createElement('select');
 
-// Create the options
-const option1 = document.createElement('option');
-option1.value = 'option1';
-option1.text = 'Bingus';
-const option2 = document.createElement('option');
-option2.value = 'option2';
-option2.text = 'Option 2';
-const option3 = document.createElement('option');
-option3.value = 'option3';
-option3.text = 'Option 3';
-const option4 = document.createElement('option');
-option4.value = 'option4';
-option4.text = 'Option 4';
+chrome.storage.sync.get({ tagsToTest: [] }, (data) => {
+    tagsToTest = data.tagsToTest;
 
-// Add the options to the select element
-select.add(option1);
-select.add(option2);
-select.add(option3);
-select.add(option4);
+    // Loop over the options array and create a new option element for each item
+    tagsToTest.forEach((tag, index) => {
+        const option = document.createElement('option');
+        option.value = `option${index + 1}`;
+        option.text = tag;
+        select.add(option);
+    });
 
-// Add the select element to the wrapper element
-wrapper.insertAdjacentElement('afterbegin', select);
+    // Add the select element to the wrapper element
+    wrapper.insertAdjacentElement('afterbegin', select);
+});
