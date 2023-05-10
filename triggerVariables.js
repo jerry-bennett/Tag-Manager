@@ -18,6 +18,7 @@ function sleep(ms) {
 
 //main function
 async function getTriggerVariables() {
+  //document.getElementById("tagsToTestField").innerHTML = "Hello World!";
   //make sure the user is on the right page
   var url = window.location.href;
 

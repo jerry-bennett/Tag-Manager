@@ -19,7 +19,8 @@
       "triggerVariables.js",
       "fireTags.js",
       "tagVariables.js",
-      "qaTags.js"
+      "qaTags.js",
+      "popup.js"
     ]
   }],
   "web_accessible_resources": [{
@@ -28,7 +29,8 @@
       "triggerVariables.js",
       "fireTags.js",
       "tagVariables.js",
-      "qaTags.js"
+      "qaTags.js",
+      "popup.js"
     ]
   }]
 }

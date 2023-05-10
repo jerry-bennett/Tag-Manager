@@ -4,10 +4,21 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
+      select {
+        display: inline-block;
+        position: relative;
+        top: -20px;
+        font-size: 16px;
+        font-family: Arial, sans-serif;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
       body {
         padding: 20px;
-        width: 250px;
-        height: auto;
+        width: 350px;
+        height: 250px;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -15,6 +26,7 @@
       }
       #wrapper {
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         height: 75vh;
@@ -23,6 +35,7 @@
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         grid-gap: 10px;
+        margin-top: 20px;
       }
       .button {
         display: flex;
@@ -55,10 +68,13 @@
         background-color: #ff9800;
         color: #ffffff;
       }
+      #select {
+        display: block;
+      }
     </style>
   </head>
-  <body>
-    <div id="wrapper">
+  <body>     
+    <div id="wrapper"> 
       <div class="button-grid">
         <div class="button" id="triggerVariables">
           <i class="material-icons">alarm</i>Triggers
@@ -71,12 +87,14 @@
         </div>
         <div class="button" id="qaTags">
           <i class="material-icons">info</i>QA
-        </div>
+        </div> 
       </div>
     </div>
+    <script src="popup.js"></script>
     <script type="module" src="triggerVariables.js"></script>
     <script type="module" src="fireTags.js"></script>
     <script type="module" src="qaTags.js"></script>
-    <script type="text/javascript" src="tagVariables.js"></script>
+    <script type="module" src="tagVariables.js"></script>
+  </body>
   </body>
 </html>

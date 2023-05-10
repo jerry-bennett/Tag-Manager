@@ -12,12 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   async function fireTagsFunction () {
-    // Initialize a variable to store the number of pages on the website
-    let numPages = 0;
     
-    // Get all the links on the page
-    const links = document.getElementsByTagName("a");
-
     let tagsToTest = [];
     let filter1 = [];
     let filter2 = [];
@@ -34,6 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
       //ISSUE: only fires one tag at the moment. need to assign which tag is associated with which trigger.
       for (let i = 0; i < tagsToTest.length; i++) {
+        console.log("🏷 i: " + i);
+        console.log("🏷" + tagsToTest);
         //initialize timesFired as 0
         let timesFired = 0;
         console.log("🏷 Tags to test " + tagsToTest.length);
@@ -46,13 +43,14 @@ document.addEventListener('DOMContentLoaded', () => {
             //store element
             elementToClick = document.getElementsByClassName(String(filter3[i]));
             if(elementToClick.length > 0){
-              //push tag to test into array
-              tagsArray.push(String(tagsToTest[[i]]));
               console.log("🏷 Elements matching " + filter3[i] + ": " + elementToClick.length);
               for(var j = 0; j < elementToClick.length; j++){
                 elementToClick[j].click();
                 timesFired = timesFired + 1;
               }
+              console.log("🏷 i: " + i);
+              //push tag to test into array
+              tagsArray.push(tagsToTest[[i]]);
               tagsArray.push(timesFired);
             }else{
               console.log("🏷 No elements matching " + filter3[i]);

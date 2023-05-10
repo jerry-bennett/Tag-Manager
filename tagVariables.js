@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 async function getTagVariables() {
+
   //make sure the user is on the right page
   var url = window.location.href;
   if (!url.endsWith("tags")) {
@@ -19,13 +20,14 @@ async function getTagVariables() {
     var triggerButton = document.querySelector('.gtm-container-menu-list-item.open-tag-list-button.md-gtm-theme');
     triggerButton.click();
     await sleep(1000);
-  }
-
-  var tag = document.getElementsByClassName('wd-tag-row');
-  var tagsToTest = [];
-  var tagNames = [];
-  var tagTotal = 0;
-  chrome.storage.sync.get('numOfTriggers', function(data) {
+    }
+    var myVariable = [];
+    var tag = document.getElementsByClassName('wd-tag-row');
+    var tagsToTest = [];
+    var tagNames = [];
+    var tagTotal = 0;
+    var tagTriggers = [];
+    chrome.storage.sync.get('numOfTriggers', function(data) {
     const numOfTriggers = data.numOfTriggers;
     //get variables from storage to use
     chrome.storage.sync.get({triggerNames:[] },function(data) {
@@ -44,13 +46,13 @@ async function getTagVariables() {
         for(var j = 0; j < numOfTriggers; j++){
           if(String(tagArray[3]).includes(triggerNames[j])){
             tagsToTest.push(tempName);
+            tagTriggers.push(tagArray[3]);
           }
         }
-
       }
-
       //display tags to test
-      console.log("Tags to test: "+ tagsToTest);
+      console.log("🏷 Tags to test: "+ tagsToTest);
+      console.log("🏷 Triggers to test: "+ tagTriggers);
 
       //store them
       chrome.storage.sync.set({tagsToTest:tagsToTest}, function(){
