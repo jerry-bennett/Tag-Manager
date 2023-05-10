@@ -39,6 +39,7 @@ async function getTriggerVariables() {
   var filter1 = [];
   var filter2 = [];
   var filter3 = [];
+  var triggerArray = [];
 
   //main loop
   for (let i = 0; i < numOfTriggers; i++) {
@@ -54,26 +55,13 @@ async function getTriggerVariables() {
     //assign variables to store to an array
     triggerNames.push(triggerNameElement[i].innerText);
   }
+  triggerArray.push(triggerNames, filter1, filter2, filter3);
 
   //see what is going to be stored
-  console.log(triggerNames);
-
-  console.log(filter1);
-  console.log(filter2);
-  console.log(filter3);
+  console.log(triggerArray);
   //actually store them
-  chrome.storage.sync.set({triggerNames:triggerNames}, function(){
+  chrome.storage.sync.set({triggerArray:triggerArray}, function(){
   });
-
-  chrome.storage.sync.set({filter1:filter1}, function(){
-  });
-
-  chrome.storage.sync.set({filter2:filter2}, function(){
-  });
-
-  chrome.storage.sync.set({filter3:filter3}, function(){
-  });
-
   //store numOfTriggers
   chrome.storage.sync.set({ 'numOfTriggers': numOfTriggers }, function() {
   });
