@@ -64,63 +64,7 @@ async function getTagVariables() {
     
       chrome.storage.sync.set({tagNames:tagNames}, function(){
       });
-      
+
   });
   
-
-  //   var myVariable = [];
-  //   var tag = document.getElementsByClassName('wd-tag-row');
-  //   var tagsToTest = [];
-  //   var tagNames = [];
-  //   var tagTotal = 0;
-  //   var tagTriggers = [];
-  //   chrome.storage.sync.get('numOfTriggers', function(data) {
-  //   const numOfTriggers = data.numOfTriggers;
-  //   //get variables from storage to use
-  //   chrome.storage.sync.get({triggerNames:[], filter3: [] },async function(data) {
-  //     triggerNames = data.triggerNames;
-  //     filter3 = data.filter3;
-
-  //     //get number of tags present
-  //     var numOfTags = document.getElementsByClassName('open-tag-button fill-cell md-gtm-theme').length;
-  //     //loop to store tag names into an array
-  //     for(var i = 0; i < numOfTags; i++){
-  //       //get tag name and use regext to make it usable
-  //       var text = tag[i].innerText;
-  //       var readableText = text.replace(/\t/g, " ").replace(/\n+/g, "\n");
-  //       var tagArray = readableText.split('\n');
-  //       var tempName = tagArray[1];
-  //       tagNames.push(tempName);
-  //       //make sure it's a trigger that can be used
-  //       if((document.getElementsByClassName('small-trigger-chip md-gtm-theme')[i].innerText).includes("All Pages")){
-  //         console.log('yeah baby')
-  //       }else{
-  //         //loop through and see if the trigger aligns with filter 3
-  //         for(var k = 0; k < filter3.length; k++){
-  //           //click on the trigger inside the tag
-  //           document.getElementsByClassName('small-trigger-chip md-gtm-theme')[i].click();
-  //           //await sleep(1000);
-  //           if(document.getElementsByClassName('gtm-predicate-summary-row blg-body blg-spacer1')[0].innerText.includes(filter3[k])){
-  //             console.log("FILTER 3!!!: " + filter3[k])
-  //             document.getElementsByClassName('gtm-sheet-header__close')[0].click()
-  //           }
-  //         }
-  //         //document.getElementsByClassName('gtm-predicate-summary-row blg-body blg-spacer1')
-  //       }
-  //       for(var j = 0; j < numOfTriggers; j++){
-  //         if(String(tagArray[3]).includes(triggerNames[j])){
-  //           tagsToTest.push(tempName);
-  //           tagTriggers.push(tagArray[3]);
-  //         }
-  //       }
-  //     }
-  //     //display tags to test
-  //     console.log("🏷 Tags to test: "+ tagsToTest);
-  //     console.log("🏷 Triggers to test: "+ tagTriggers);
-
-  //     //store them
-  //     chrome.storage.sync.set({tagsToTest:tagsToTest}, function(){
-  //     });
-  //   });
-  // });
 }
