@@ -34,7 +34,8 @@ async function getTriggerVariables() {
 
   //define trigger variables
   const triggerRows = document.getElementsByClassName('gtm-predicate-summary-row');
-  const numOfTriggers = triggerRows.length;
+  const triggers = document.getElementsByClassName('wd-open-trigger-button fill-cell md-gtm-theme');
+  const numOfTriggers = triggers.length;
   var triggerNames = [];
   var filter1 = [];
   var filter2 = [];
@@ -45,7 +46,7 @@ async function getTriggerVariables() {
   for (let i = 0; i < numOfTriggers; i++) {
     console.log(numOfTriggers);
     //trigger variables for loop
-    const triggerNameElement = document.getElementsByClassName('wd-open-trigger-button fill-cell md-gtm-theme');
+    //const triggerNameElement = document.getElementsByClassName('wd-open-trigger-button fill-cell md-gtm-theme');
   
     //variables to store to chrome storage
     filter1.push(triggerRows[i].children[0].innerHTML);
@@ -53,8 +54,10 @@ async function getTriggerVariables() {
     filter3.push(triggerRows[i].children[2].innerHTML);
 
     //assign variables to store to an array
-    triggerNames.push(triggerNameElement[i].innerText);
+    triggerNames.push(triggers[i].innerText);
+    console.log(i);
   }
+  console.log('swag');
   triggerArray.push(triggerNames, filter1, filter2, filter3);
 
   //see what is going to be stored
