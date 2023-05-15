@@ -58,9 +58,13 @@ async function getTagVariables() {
       }
       tagsArray.push(tagNames, tagTriggers);
       console.log(tagsArray);
-  });
-
-  chrome.storage.sync.set({tagsArray:tagsArray}, function(){
+      console.log(tagNames);
+      chrome.storage.sync.set({tagsArray:tagsArray}, function(){
+      });
+    
+      chrome.storage.sync.set({tagNames:tagNames}, function(){
+      });
+      
   });
   
 

@@ -13,10 +13,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
   async function fireTagsFunction () {
     chrome.storage.sync.get({ currentOptionText: '', tagsArray: [] }, function(data) {
-      var tagToTest = data.currentOptionText;
+      var currentOptionText = data.currentOptionText;
       var tagsArray = data.tagsArray;
-      console.log(tagToTest);
-      console.log(tagsArray);
+      var numOfTags = tagsArray[0].length;
+
+      //loop through each tag name and see if it matches the one in the dropdown
+      for(var i = 0; i < numOfTags; i++){
+        //see if the current option is what is listed in the dropdown
+        if(String(tagsArray[0][i]).includes(currentOptionText)){
+          //if it is, find how many elements on the page match the filter3 value.
+          var click = document.getElementsByClassName(tagsArray[1][i]);
+          //click each one of those options
+          for(var j = 0; j < click.length; j++){
+            click[j].click();
+          }
+          
+        }
+      }
+
     });
     
     // let tagsToTest = [];

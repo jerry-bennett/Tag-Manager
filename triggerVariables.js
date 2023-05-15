@@ -43,7 +43,7 @@ async function getTriggerVariables() {
 
   //main loop
   for (let i = 0; i < numOfTriggers; i++) {
-  
+    console.log(numOfTriggers);
     //trigger variables for loop
     const triggerNameElement = document.getElementsByClassName('wd-open-trigger-button fill-cell md-gtm-theme');
   

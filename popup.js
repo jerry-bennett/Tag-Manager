@@ -4,30 +4,41 @@ const wrapper = document.getElementById('wrapper');
 // Create the select element
 const select = document.createElement('select');
 
-chrome.storage.sync.get({ tagsToTest: [] }, (data) => {
-  tagsToTest = data.tagsToTest;
+// Function to populate the dropdown menu
+function populateDropdown(tagNames) {
+  // Clear the options in the select element
+  select.innerHTML = '';
 
   // Loop over the options array and create a new option element for each item
-  tagsToTest.forEach((tag, index) => {
-    const option = document.createElement('option');
-    option.value = `option${index + 1}`;
-    option.text = tag;
-    select.add(option);
-  });
+  if (tagNames && tagNames.length > 0) {
+    tagNames.forEach((tag, index) => {
+      const option = document.createElement('option');
+      option.value = tag;
+      option.text = tag;
+      select.add(option);
+    });
+  }
+}
 
-  // Store the current selected option text in Chrome storage by default
-  const currentOptionText = select.options[select.selectedIndex].text;
-  console.log(currentOptionText);
-  chrome.storage.sync.set({ currentOptionText: currentOptionText });
+// Function to handle storage changes
+function handleStorageChange(changes) {
+  if (changes.tagNames) {
+    const { newValue } = changes.tagNames;
+    populateDropdown(newValue);
+  }
+}
 
-  // Update the stored value every time the user selects a different option
-  select.addEventListener('change', () => {
-    console.log("change");
-    const currentOptionText = select.options[select.selectedIndex].text;
-    console.log(currentOptionText);
-    chrome.storage.sync.set({ currentOptionText: currentOptionText });
-  });
+// Retrieve tagNames from Chrome storage
+chrome.storage.sync.get({ tagNames: [] }, (data) => {
+  const tagNames = data.tagNames;
+  console.log(tagNames);
+
+  // Populate the dropdown menu initially
+  populateDropdown(tagNames);
 
   // Add the select element to the wrapper element
   wrapper.insertAdjacentElement('afterbegin', select);
 });
+
+// Register the storage onChanged event listener
+chrome.storage.onChanged.addListener(handleStorageChange);
