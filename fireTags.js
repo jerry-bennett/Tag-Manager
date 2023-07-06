@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   async function fireTagsFunction() {
   chrome.storage.sync.get({ currentOptionText: '', tagsArray: [], triggerArray: []}, function (data) {
     var currentOptionText = data.currentOptionText;
+    console.log('Current option: '+ currentOptionText);
     var tagsArray = data.tagsArray;
     var triggerArray = data.triggerArray
     var numOfTags = tagsArray[0].length;

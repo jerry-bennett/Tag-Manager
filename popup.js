@@ -4,6 +4,9 @@ const wrapper = document.getElementById('wrapper');
 // Create the select element
 const select = document.createElement('select');
 
+// Variable to store the current selected option
+let currentOptionText = '';
+
 // Function to populate the dropdown menu
 function populateDropdown(tagNames) {
   // Clear the options in the select element
@@ -18,6 +21,11 @@ function populateDropdown(tagNames) {
       select.add(option);
     });
   }
+
+  // Set the selected option based on the stored currentOptionText
+  if (currentOptionText) {
+    select.value = currentOptionText;
+  }
 }
 
 // Function to handle storage changes
@@ -28,16 +36,27 @@ function handleStorageChange(changes) {
   }
 }
 
-// Retrieve tagNames from Chrome storage
-chrome.storage.sync.get({ tagNames: [] }, (data) => {
+// Function to handle select change
+function handleSelectChange(event) {
+  const selectedOption = event.target.value;
+  currentOptionText = selectedOption;
+  // Store the currentOptionText in Chrome storage
+  chrome.storage.sync.set({ currentOptionText });
+}
+
+// Retrieve tagNames and currentOptionText from Chrome storage
+chrome.storage.sync.get({ tagNames: [], currentOptionText: '' }, (data) => {
   const tagNames = data.tagNames;
-  //console.log(tagNames);
+  currentOptionText = data.currentOptionText;
 
   // Populate the dropdown menu initially
   populateDropdown(tagNames);
 
   // Add the select element to the wrapper element
   wrapper.insertAdjacentElement('afterbegin', select);
+
+  // Add event listener for select change
+  select.addEventListener('change', handleSelectChange);
 });
 
 // Register the storage onChanged event listener
