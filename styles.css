@@ -1,0 +1,4 @@
+.rectangle-highlight {
+  border: 5px solid red; /* Adjust the border style as desired */
+  box-sizing: border-box;
+}

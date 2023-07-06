@@ -21,7 +21,8 @@
       "tagVariables.js",
       "qaTags.js",
       "popup.js"
-    ]
+    ],
+    "css": ["styles.css"]
   }],
   "web_accessible_resources": [{
     "matches": ["<all_urls>"],

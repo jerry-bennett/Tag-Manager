@@ -27,7 +27,9 @@ document.addEventListener('DOMContentLoaded', () => {
           case 'Click Classes':
           var clickClasses = document.getElementsByClassName(tagsArray[1][i]);
           for (var j = 0; j < clickClasses.length; j++) {
+            clickClasses[j].classList.add("highlighted");
             clickClasses[j].click();
+            // Add a CSS class to the clicked element
           }
           break;
 
@@ -35,14 +37,12 @@ document.addEventListener('DOMContentLoaded', () => {
           var clickElements = document.querySelectorAll(tagsArray[1][i]);
           for (var j = 0; j < clickElements.length; j++) {
             clickElements[j].click();
-            addSquare(clickElements[j]);
           }
           break;
 
         case 'Click ID':
           var clickIDs = document.getElementById(tagsArray[1][i]);
           clickIDs.click();
-          addSquare(clickIDs);
           break;
           default:
             // Handle other cases if necessary
