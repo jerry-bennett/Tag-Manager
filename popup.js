@@ -31,7 +31,7 @@ function handleStorageChange(changes) {
 // Retrieve tagNames from Chrome storage
 chrome.storage.sync.get({ tagNames: [] }, (data) => {
   const tagNames = data.tagNames;
-  console.log(tagNames);
+  //console.log(tagNames);
 
   // Populate the dropdown menu initially
   populateDropdown(tagNames);

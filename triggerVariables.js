@@ -44,7 +44,6 @@ async function getTriggerVariables() {
 
   //main loop
   for (let i = 0; i < numOfTriggers; i++) {
-    console.log(numOfTriggers);
     //trigger variables for loop
     //const triggerNameElement = document.getElementsByClassName('wd-open-trigger-button fill-cell md-gtm-theme');
   
@@ -55,9 +54,7 @@ async function getTriggerVariables() {
 
     //assign variables to store to an array
     triggerNames.push(triggers[i].innerText);
-    console.log(i);
   }
-  console.log('swag');
   triggerArray.push(triggerNames, filter1, filter2, filter3);
 
   //see what is going to be stored

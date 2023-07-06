@@ -45,14 +45,10 @@ async function getTagVariables() {
         //trigger name inside of tag
         var triggerName = document.getElementsByClassName('small-trigger-chip md-gtm-theme');
         //loop through and see if the trigger name matches
-        for(var j = 0; j < triggerArray[3].length; j++){
+        for(var j = 0; j < triggerName.length; j++){
           if(triggerName[i].innerText.includes(triggerArray[0][j])){
-            console.log("yep");
             tagNames.push(document.getElementsByClassName('open-tag-button fill-cell md-gtm-theme')[i].innerText);
             tagTriggers.push(triggerArray[3][j]);
-
-          }else{
-            console.log('nope');
           }
         }
       }
